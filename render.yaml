@@ -1,0 +1,37 @@
+# Render blueprint for the backend API.
+#
+# The database lives on Neon, so only the web service is declared here. Import
+# this file from the Render dashboard (Blueprints → New Blueprint Instance) and
+# then set the secret environment variables listed with `sync: false`.
+
+services:
+  - type: web
+    name: mini-erp-crm-api
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: npm ci --include=dev && npm run build
+    # Migrations run on every deploy so the schema always matches the code.
+    startCommand: npx prisma migrate deploy && node dist/server.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      # Set in the Render dashboard — never committed.
+      # DATABASE_URL: Neon's POOLED endpoint (host contains `-pooler`).
+      - key: DATABASE_URL
+        sync: false
+      # DIRECT_DATABASE_URL: Neon's direct endpoint (same host without
+      # `-pooler`). Prisma Migrate needs it — PgBouncer cannot proxy DDL.
+      - key: DIRECT_DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: SEED_DEFAULT_PASSWORD
+        sync: false
