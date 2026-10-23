@@ -1,3 +1,16 @@
+# Mini ERP & CRM Operations Portal
+
+Live Demo: https://mini-erp-crm-operations-portal-jade.vercel.app/login
+
+A full-stack ERP/CRM portal for Indian wholesale businesses to manage customers, inventory, stock movements, sales challans, and role-based access using React, Node.js, Express, TypeScript, PostgreSQL, and Prisma.
+
+## Features
+- Customer relationship management
+- Product and inventory management
+- Sales challan management
+- Role-based authentication
+- Operations dashboard
+
 # Mini ERP + CRM Operations Portal
 
 A focused ERP/CRM system for a wholesale/distribution company. Internal staff —
